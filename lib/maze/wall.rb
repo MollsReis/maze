@@ -8,10 +8,10 @@ module Maze
 
     def create_opening!
       if @origin[0] == @destination[0]
-        coord = (@origin[1]..@destination[1] - 1).to_a.sample
+        coord = [*@origin[1] .. @destination[1] - 1].sample
         @openings = [[@origin[0], coord], [@origin[0], coord + 1]]
       else
-        coord = (@origin[0]..@destination[0] - 1).to_a.sample
+        coord = [*@origin[0] .. @destination[0] - 1].sample
         @openings = [[coord, @origin[1]], [coord + 1, @origin[1]]]
       end
     end
