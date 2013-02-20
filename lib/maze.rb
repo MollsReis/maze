@@ -1,8 +1,6 @@
 require 'bundler/setup'
-Bundler.setup :default
+Bundler.require :default
 
 $:.unshift File.join(File.dirname(__FILE__), 'maze')
 
-%w[core grid wall].each do |klass|
-  require klass
-end
+%w[core grid wall window].each { |klass| require klass }
