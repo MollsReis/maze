@@ -6,5 +6,9 @@ module Maze
       self.caption = 'Maze'
     end
 
+    def draw
+      $walls.each(&:render)
+    end
+
   end
 end

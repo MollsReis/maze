@@ -1,9 +1,9 @@
 module Maze
   class Wall
     
-    def initialize(origin, destination)
+    def initialize(origin, destination, interior = true)
       @origin, @destination = origin, destination
-      create_opening!
+      create_opening! if interior
     end
 
     def create_opening!
@@ -16,7 +16,20 @@ module Maze
     end
 
     def render
-      #TODO render wall on grid
+      $window.draw_quad(
+          Maze::X_OFFSET + @origin[0] * Maze::MUILTIPLIER,
+          Maze::Y_OFFSET + @origin[1] * Maze::MUILTIPLIER,
+          Maze::COLOR,
+          Maze::X_OFFSET + @origin[0] * Maze::MUILTIPLIER + Maze::THICKNESS,
+          Maze::Y_OFFSET + @origin[1] * Maze::MUILTIPLIER + Maze::THICKNESS,
+          Maze::COLOR,
+          Maze::X_OFFSET + @destination[0] * Maze::MUILTIPLIER,
+          Maze::Y_OFFSET + @destination[1] * Maze::MUILTIPLIER,
+          Maze::COLOR,
+          Maze::X_OFFSET + @destination[0] * Maze::MUILTIPLIER + Maze::THICKNESS,
+          Maze::Y_OFFSET + @destination[1] * Maze::MUILTIPLIER + Maze::THICKNESS,
+          Maze::COLOR
+      )
     end
 
     def to_s
