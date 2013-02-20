@@ -50,12 +50,20 @@ module Maze
       end
       context 'given an left subarea large enough' do
         it 'yields the result of that subarea#bisect' do
-          pending
+          grid = Grid.new([0,0], [5,5])
+          grid.stub(:random_wall_coord => 3)
+          Grid.stub(:new => double('grid', :bisect => :expected))
+          Grid.should_receive(:new).with([0,0], [3,5])
+          grid.vertical_bisect {}.should eq :expected
         end
       end
       context 'given an right subarea large enough' do
         it 'yields the result of that subarea#bisect' do
-          pending
+          grid = Grid.new([0,0], [5,5])
+          grid.stub(:random_wall_coord => 3)
+          Grid.stub(:new => double('grid', :bisect => :expected))
+          Grid.should_receive(:new).with([3,0], [5,5])
+          grid.vertical_bisect {}.should eq :expected
         end
       end
     end
@@ -69,12 +77,20 @@ module Maze
       end
       context 'given an top subarea large enough' do
         it 'yields the result of that subarea#bisect' do
-          pending
+          grid = Grid.new([0,0], [5,5])
+          grid.stub(:random_wall_coord => 3)
+          Grid.stub(:new => double('grid', :bisect => :expected))
+          Grid.should_receive(:new).with([0,0], [5,3])
+          grid.horizontal_bisect {}.should eq :expected
         end
       end
       context 'given an bottom subarea large enough' do
         it 'yields the result of that subarea#bisect' do
-          pending
+          grid = Grid.new([0,0], [5,5])
+          grid.stub(:random_wall_coord => 3)
+          Grid.stub(:new => double('grid', :bisect => :expected))
+          Grid.should_receive(:new).with([0,3], [5,5])
+          grid.horizontal_bisect {}.should eq :expected
         end
       end
     end
