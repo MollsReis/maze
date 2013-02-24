@@ -8,6 +8,7 @@ module Maze
     end
 
     def draw
+      puts $walls[@counter - 1] if $walls[@counter - 1]
       $walls.first(@counter).each(&:render)
       @counter += 1
     end

@@ -16,8 +16,46 @@ module Maze
       end
     end
 
+    def opening_at_origin?
+      @openings && @origin[0] == @openings[0][0] && @origin[1] == @openings[0][1]
+    end
+
+    def opening_at_destination?
+      @openings && @destination[0] == @openings[1][0] && @destination[1] == @openings[1][1]
+    end
+
     def render
-      if @openings
+      if opening_at_origin?
+        $window.draw_quad(
+            Maze::X_OFFSET + @openings[1][0] * Maze::MUILTIPLIER,
+            Maze::Y_OFFSET + @openings[1][1] * Maze::MUILTIPLIER,
+            Maze::COLOR,
+            Maze::X_OFFSET + @openings[1][0] * Maze::MUILTIPLIER + Maze::THICKNESS,
+            Maze::Y_OFFSET + @openings[1][1] * Maze::MUILTIPLIER + Maze::THICKNESS,
+            Maze::COLOR,
+            Maze::X_OFFSET + @destination[0] * Maze::MUILTIPLIER,
+            Maze::Y_OFFSET + @destination[1] * Maze::MUILTIPLIER,
+            Maze::COLOR,
+            Maze::X_OFFSET + @destination[0] * Maze::MUILTIPLIER + Maze::THICKNESS,
+            Maze::Y_OFFSET + @destination[1] * Maze::MUILTIPLIER + Maze::THICKNESS,
+            Maze::COLOR
+        )
+      elsif opening_at_destination?
+        $window.draw_quad(
+            Maze::X_OFFSET + @origin[0] * Maze::MUILTIPLIER,
+            Maze::Y_OFFSET + @origin[1] * Maze::MUILTIPLIER,
+            Maze::COLOR,
+            Maze::X_OFFSET + @origin[0] * Maze::MUILTIPLIER + Maze::THICKNESS,
+            Maze::Y_OFFSET + @origin[1] * Maze::MUILTIPLIER + Maze::THICKNESS,
+            Maze::COLOR,
+            Maze::X_OFFSET + @openings[0][0] * Maze::MUILTIPLIER,
+            Maze::Y_OFFSET + @openings[0][1] * Maze::MUILTIPLIER,
+            Maze::COLOR,
+            Maze::X_OFFSET + @openings[0][0] * Maze::MUILTIPLIER + Maze::THICKNESS,
+            Maze::Y_OFFSET + @openings[0][1] * Maze::MUILTIPLIER + Maze::THICKNESS,
+            Maze::COLOR
+        )
+      elsif @openings
         $window.draw_quad(
             Maze::X_OFFSET + @origin[0] * Maze::MUILTIPLIER,
             Maze::Y_OFFSET + @origin[1] * Maze::MUILTIPLIER,
@@ -65,7 +103,16 @@ module Maze
     end
 
     def to_s
-      "(#{@origin[0]},#{@origin[1]}) -> (#{@destination[0]},#{@destination[1]})"
+      if opening_at_origin?
+        "(#{@openings[1][0]},#{@openings[1][1]}) -> (#{@destination[0]},#{@destination[1]})"
+      elsif opening_at_destination?
+        "(#{@origin[0]},#{@origin[1]}) -> (#{@openings[0][0]},#{@openings[0][1]})"
+      elsif @openings
+        "(#{@origin[0]},#{@origin[1]}) -> (#{@openings[0][0]},#{@openings[0][1]}) -> " +
+        "(#{@openings[1][0]},#{@openings[1][1]}) -> (#{@destination[0]},#{@destination[1]})"
+      else
+        "(#{@origin[0]},#{@origin[1]}) -> (#{@destination[0]},#{@destination[1]})"
+      end
     end
 
   end
