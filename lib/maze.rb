@@ -7,7 +7,7 @@ $:.unshift File.join(File.dirname(__FILE__), 'maze')
 
 module Maze
   COLOR = Gosu::Color.new(0xFF1EB1FA)
-  MUILTIPLIER = 40
+  MULTIPLIER = 40
   X_OFFSET = 125
   Y_OFFSET = 35
   THICKNESS = 2
