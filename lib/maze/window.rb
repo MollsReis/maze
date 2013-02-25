@@ -17,6 +17,7 @@ module Maze
         @counter += 1
       end
       @but_down = false if !button_down?(::Gosu::KbSpace) && $debug
+      exit if button_down?(::Gosu::KbEscape)
     end
 
     def draw
