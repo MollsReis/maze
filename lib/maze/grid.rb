@@ -17,14 +17,14 @@ module Maze
     end
 
     def vertical_bisect
-      @wall_cord = random_wall_coord
+      @wall_cord = random_wall_coord(:vertical)
       yield Wall.new([@wall_cord, @min_y], [@wall_cord, @max_y], true, to_s)
       Grid.new([@min_x, @min_y], [@wall_cord, @max_y]).bisect { |w| yield w } unless @wall_cord - 1 == @min_x
       Grid.new([@wall_cord, @min_y], [@max_x, @max_y]).bisect { |w| yield w } unless @wall_cord + 1 == @max_x
     end
 
     def horizontal_bisect
-      @wall_cord = random_wall_coord
+      @wall_cord = random_wall_coord(:horizontal)
       yield Wall.new([@min_x, @wall_cord], [@max_x, @wall_cord], true, to_s)
       Grid.new([@min_x, @min_y], [@max_x, @wall_cord]).bisect { |w| yield w } unless @wall_cord - 1 == @min_y
       Grid.new([@min_x, @wall_cord], [@max_x, @max_y]).bisect { |w| yield w } unless @wall_cord + 1 == @max_y
@@ -35,8 +35,8 @@ module Maze
       @width > @height ? true : false
     end
 
-    def random_wall_coord
-      return [*@min_x + 1 .. @max_x - 1].sample if vertical_wall?
+    def random_wall_coord(orientation)
+      return [*@min_x + 1 .. @max_x - 1].sample if orientation == :vertical
       [*@min_y + 1 .. @max_y - 1].sample
     end
 
