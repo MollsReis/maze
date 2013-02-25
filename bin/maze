@@ -1,4 +1,20 @@
 #!/usr/bin/env ruby
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 require 'maze'
+require 'optparse'
+require 'logger'
+
+OptionParser.new do |opts|
+  opts.banner = 'Usage: maze [options]'
+  opts.on('-d', '--debug', 'Debug mode') { $debug = true }
+  opts.on_tail('-h', '--help', 'Show this message') { puts opts; exit }
+end.parse!
+
+if $debug
+  $logger = Logger.new(STDOUT)
+else
+  $logger = Logger.new(nil)
+end
+
+
 Maze::Core.create_maze!
