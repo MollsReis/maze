@@ -1,8 +1,9 @@
 module Maze
   class Wall
-    
-    def initialize(origin, destination, interior = true)
-      @origin, @destination = origin, destination
+
+    def initialize(origin, destination, interior, grid_s = '')
+      @origin, @destination, @grid_s = origin, destination, grid_s
+      @grid_s = "\n#{grid_s}\n" unless grid_s.empty?
       create_opening! if interior
     end
 
@@ -104,14 +105,14 @@ module Maze
 
     def to_s
       if opening_at_origin?
-        "(#{@openings[1][0]},#{@openings[1][1]}) -> (#{@destination[0]},#{@destination[1]})"
+        @grid_s + "WALL: (#{@openings[1][0]},#{@openings[1][1]}) -> (#{@destination[0]},#{@destination[1]})"
       elsif opening_at_destination?
-        "(#{@origin[0]},#{@origin[1]}) -> (#{@openings[0][0]},#{@openings[0][1]})"
+        @grid_s + "WALL: (#{@origin[0]},#{@origin[1]}) -> (#{@openings[0][0]},#{@openings[0][1]})"
       elsif @openings
-        "(#{@origin[0]},#{@origin[1]}) -> (#{@openings[0][0]},#{@openings[0][1]}) -> " +
+        @grid_s + "WALL: (#{@origin[0]},#{@origin[1]}) -> (#{@openings[0][0]},#{@openings[0][1]}) -> " +
         "(#{@openings[1][0]},#{@openings[1][1]}) -> (#{@destination[0]},#{@destination[1]})"
       else
-        "(#{@origin[0]},#{@origin[1]}) -> (#{@destination[0]},#{@destination[1]})"
+        @grid_s + "WALL: (#{@origin[0]},#{@origin[1]}) -> (#{@destination[0]},#{@destination[1]})"
       end
     end
 
