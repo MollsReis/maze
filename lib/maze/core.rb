@@ -10,7 +10,8 @@ module Maze
           Wall.new(window, [0,10], [10,10], false)
       ]
       Grid.new(window, [0,0], [10,10]).bisect { |w| walls << w }
-      window.load_walls!(walls)
+      hero = Entity::Hero.new(window, 10, 10)
+      window.load!(walls, hero)
       window.show
     end
 

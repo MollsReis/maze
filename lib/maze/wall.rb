@@ -30,75 +30,75 @@ module Maze
         @window.draw_quad(
             Maze::X_OFFSET + @openings[1][0] * Maze::MULTIPLIER,
             Maze::Y_OFFSET + @openings[1][1] * Maze::MULTIPLIER,
-            Maze::COLOR,
+            Maze::MAZE_COLOR,
             Maze::X_OFFSET + @openings[1][0] * Maze::MULTIPLIER + Maze::THICKNESS,
             Maze::Y_OFFSET + @openings[1][1] * Maze::MULTIPLIER + Maze::THICKNESS,
-            Maze::COLOR,
+            Maze::MAZE_COLOR,
             Maze::X_OFFSET + @destination[0] * Maze::MULTIPLIER,
             Maze::Y_OFFSET + @destination[1] * Maze::MULTIPLIER,
-            Maze::COLOR,
+            Maze::MAZE_COLOR,
             Maze::X_OFFSET + @destination[0] * Maze::MULTIPLIER + Maze::THICKNESS,
             Maze::Y_OFFSET + @destination[1] * Maze::MULTIPLIER + Maze::THICKNESS,
-            Maze::COLOR
+            Maze::MAZE_COLOR
         )
       elsif opening_at_destination?
         @window.draw_quad(
             Maze::X_OFFSET + @origin[0] * Maze::MULTIPLIER,
             Maze::Y_OFFSET + @origin[1] * Maze::MULTIPLIER,
-            Maze::COLOR,
+            Maze::MAZE_COLOR,
             Maze::X_OFFSET + @origin[0] * Maze::MULTIPLIER + Maze::THICKNESS,
             Maze::Y_OFFSET + @origin[1] * Maze::MULTIPLIER + Maze::THICKNESS,
-            Maze::COLOR,
+            Maze::MAZE_COLOR,
             Maze::X_OFFSET + @openings[0][0] * Maze::MULTIPLIER,
             Maze::Y_OFFSET + @openings[0][1] * Maze::MULTIPLIER,
-            Maze::COLOR,
+            Maze::MAZE_COLOR,
             Maze::X_OFFSET + @openings[0][0] * Maze::MULTIPLIER + Maze::THICKNESS,
             Maze::Y_OFFSET + @openings[0][1] * Maze::MULTIPLIER + Maze::THICKNESS,
-            Maze::COLOR
+            Maze::MAZE_COLOR
         )
       elsif @openings
         @window.draw_quad(
             Maze::X_OFFSET + @origin[0] * Maze::MULTIPLIER,
             Maze::Y_OFFSET + @origin[1] * Maze::MULTIPLIER,
-            Maze::COLOR,
+            Maze::MAZE_COLOR,
             Maze::X_OFFSET + @origin[0] * Maze::MULTIPLIER + Maze::THICKNESS,
             Maze::Y_OFFSET + @origin[1] * Maze::MULTIPLIER + Maze::THICKNESS,
-            Maze::COLOR,
+            Maze::MAZE_COLOR,
             Maze::X_OFFSET + @openings[0][0] * Maze::MULTIPLIER,
             Maze::Y_OFFSET + @openings[0][1] * Maze::MULTIPLIER,
-            Maze::COLOR,
+            Maze::MAZE_COLOR,
             Maze::X_OFFSET + @openings[0][0] * Maze::MULTIPLIER + Maze::THICKNESS,
             Maze::Y_OFFSET + @openings[0][1] * Maze::MULTIPLIER + Maze::THICKNESS,
-            Maze::COLOR
+            Maze::MAZE_COLOR
         )
         @window.draw_quad(
             Maze::X_OFFSET + @openings[1][0] * Maze::MULTIPLIER,
             Maze::Y_OFFSET + @openings[1][1] * Maze::MULTIPLIER,
-            Maze::COLOR,
+            Maze::MAZE_COLOR,
             Maze::X_OFFSET + @openings[1][0] * Maze::MULTIPLIER + Maze::THICKNESS,
             Maze::Y_OFFSET + @openings[1][1] * Maze::MULTIPLIER + Maze::THICKNESS,
-            Maze::COLOR,
+            Maze::MAZE_COLOR,
             Maze::X_OFFSET + @destination[0] * Maze::MULTIPLIER,
             Maze::Y_OFFSET + @destination[1] * Maze::MULTIPLIER,
-            Maze::COLOR,
+            Maze::MAZE_COLOR,
             Maze::X_OFFSET + @destination[0] * Maze::MULTIPLIER + Maze::THICKNESS,
             Maze::Y_OFFSET + @destination[1] * Maze::MULTIPLIER + Maze::THICKNESS,
-            Maze::COLOR
+            Maze::MAZE_COLOR
         )
       else
         @window.draw_quad(
             Maze::X_OFFSET + @origin[0] * Maze::MULTIPLIER,
             Maze::Y_OFFSET + @origin[1] * Maze::MULTIPLIER,
-            Maze::COLOR,
+            Maze::MAZE_COLOR,
             Maze::X_OFFSET + @origin[0] * Maze::MULTIPLIER + Maze::THICKNESS,
             Maze::Y_OFFSET + @origin[1] * Maze::MULTIPLIER + Maze::THICKNESS,
-            Maze::COLOR,
+            Maze::MAZE_COLOR,
             Maze::X_OFFSET + @destination[0] * Maze::MULTIPLIER,
             Maze::Y_OFFSET + @destination[1] * Maze::MULTIPLIER,
-            Maze::COLOR,
+            Maze::MAZE_COLOR,
             Maze::X_OFFSET + @destination[0] * Maze::MULTIPLIER + Maze::THICKNESS,
             Maze::Y_OFFSET + @destination[1] * Maze::MULTIPLIER + Maze::THICKNESS,
-            Maze::COLOR
+            Maze::MAZE_COLOR
         )
       end
     end
