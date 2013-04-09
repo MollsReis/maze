@@ -16,5 +16,4 @@ else
   $logger = Logger.new(nil)
 end
 
-
 Maze::Core.create_maze!

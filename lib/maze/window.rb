@@ -4,24 +4,18 @@ module Maze
     def initialize
       super(640, 480, false)
       self.caption = 'Maze'
-      @counter, @but_down = 1, false
-      $logger.debug $walls[0] if $debug
+    end
+
+    def load_walls!(walls)
+      @walls = walls
     end
 
     def update
-      if button_down?(::Gosu::KbSpace) && !@but_down && $debug
-        @but_down = true
-        @counter += 1
-        $logger.debug $walls[@counter - 1] if $walls[@counter - 1]
-      elsif !$debug
-        @counter += 1
-      end
-      @but_down = false if !button_down?(::Gosu::KbSpace) && $debug
-      exit if button_down?(::Gosu::KbEscape)
+      # nothing yet
     end
 
     def draw
-      $walls.first(@counter).each(&:render)
+      @walls.each(&:render)
     end
 
   end
