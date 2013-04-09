@@ -2,6 +2,10 @@ module Maze
   module Entity
     class Hero
 
+      attr_reader :x, :y
+
+      SPEED = 2
+
       def initialize(window, x, y)
         @window = window
         @x, @y = x + Maze::X_OFFSET, y + Maze::Y_OFFSET
@@ -9,19 +13,23 @@ module Maze
 
       def move!(dir)
         case dir
-          when :up
-            @y -= 1
+          when :forward
+            @x += Math.cos(mouse_angle) * SPEED
+            @y += Math.sin(mouse_angle) * SPEED
+          when :back
+            @x -= Math.cos(mouse_angle) * SPEED
+            @y -= Math.sin(mouse_angle) * SPEED
           when :left
-            @x -= 1
-          when :down
-            @y += 1
+            @x += Math.sin(mouse_angle) * SPEED
+            @y -= Math.cos(mouse_angle) * SPEED
           when :right
-            @x += 1
+            @x -= Math.sin(mouse_angle) * SPEED
+            @y += Math.cos(mouse_angle) * SPEED
         end
       end
 
       def render
-        @window.rotate(mouse_angle, @x, @y) do
+        @window.rotate(mouse_angle * 180 / Math::PI, @x, @y) do
           @window.draw_triangle(
                   @x - 5,
                   @y - 10,
@@ -37,7 +45,7 @@ module Maze
       end
 
       def mouse_angle
-        Math.atan2(@window.mouse_y - @y, @window.mouse_x - @x) * 180 / Math::PI
+        Math.atan2(@window.mouse_y - @y, @window.mouse_x - @x)
       end
 
     end
