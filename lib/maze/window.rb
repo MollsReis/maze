@@ -1,6 +1,8 @@
 module Maze
   class Window < ::Gosu::Window
 
+    attr_reader :walls
+
     def initialize
       super(640, 480, false)
       self.caption = 'Maze'
