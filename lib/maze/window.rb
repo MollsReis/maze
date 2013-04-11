@@ -15,8 +15,8 @@ module Maze
       true
     end
 
-    def load!(walls, hero)
-      @walls, @hero = walls, hero
+    def load!(walls, hero, darkness)
+      @walls, @hero, @darkness = walls, hero, darkness
     end
 
     def update
@@ -39,6 +39,7 @@ module Maze
       translate(@camera_x, @camera_y) do
         @hero.render
         @walls.each(&:render)
+        @darkness.render
       end
       #TODO add clipping
     end

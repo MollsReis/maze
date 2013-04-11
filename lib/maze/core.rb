@@ -11,7 +11,7 @@ module Maze
       ]
       Grid.new(window, [0,0], [10,10]).bisect { |w| walls << w }
       hero = Entity::Hero.new(window, 60, 60)
-      window.load!(walls, hero)
+      window.load!(walls, hero, Darkness.new(window))
       window.show
     end
 

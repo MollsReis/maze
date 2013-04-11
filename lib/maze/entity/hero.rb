@@ -7,6 +7,7 @@ module Maze
       SPEED = 1.8
       BOUNDING_RADIUS = 5
       Z_INDEX = 2
+      COLOR = Gosu::Color.new(0xFF0000B8)
 
       def initialize(window, x, y)
         @window = window
@@ -58,13 +59,13 @@ module Maze
           @window.draw_triangle(
                   @x - 5,
                   @y - 10,
-                  Maze::HERO_COLOR,
+                  COLOR,
                   @x + 20,
                   @y,
-                  Maze::HERO_COLOR,
+                  COLOR,
                   @x - 5,
                   @y + 10,
-                  Maze::HERO_COLOR,
+                  COLOR,
                   Z_INDEX
           )
         end
