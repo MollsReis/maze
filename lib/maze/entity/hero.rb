@@ -4,7 +4,7 @@ module Maze
 
       attr_reader :x, :y
 
-      SPEED = 1.5
+      SPEED = 1.8
       BOUNDING_RADIUS = 5
 
       def initialize(window, x, y)
@@ -27,19 +27,28 @@ module Maze
       end
 
       def move!(dir)
+        x_move = y_move = 0
         case dir
           when :forward
-            @x += Math.cos(mouse_angle) * SPEED unless wall_collide?(@x + Math.cos(mouse_angle) * SPEED)
-            @y += Math.sin(mouse_angle) * SPEED unless wall_collide?(nil, @y + Math.sin(mouse_angle) * SPEED)
+            x_move = Math.cos(mouse_angle) * SPEED
+            y_move = Math.sin(mouse_angle) * SPEED
           when :back
-            @x -= Math.cos(mouse_angle) * SPEED unless wall_collide?(@x - Math.cos(mouse_angle) * SPEED)
-            @y -= Math.sin(mouse_angle) * SPEED unless wall_collide?(nil, @y - Math.sin(mouse_angle) * SPEED)
+            x_move = Math.cos(mouse_angle) * SPEED * -1.0
+            y_move = Math.sin(mouse_angle) * SPEED * -1.0
           when :left
-            @x += Math.sin(mouse_angle) * SPEED unless wall_collide?(@x + Math.sin(mouse_angle) * SPEED)
-            @y -= Math.cos(mouse_angle) * SPEED unless wall_collide?(nil, @y - Math.cos(mouse_angle) * SPEED)
+            x_move = Math.sin(mouse_angle) * SPEED
+            y_move = Math.cos(mouse_angle) * SPEED * -1.0
           when :right
-            @x -= Math.sin(mouse_angle) * SPEED unless wall_collide?(@x - Math.sin(mouse_angle) * SPEED)
-            @y += Math.cos(mouse_angle) * SPEED unless wall_collide?(nil, @y + Math.cos(mouse_angle) * SPEED)
+            x_move = Math.sin(mouse_angle) * SPEED * -1.0
+            y_move = Math.cos(mouse_angle) * SPEED
+        end
+        unless wall_collide?(@x + x_move)
+          @x += x_move
+          @window.camera_x -= x_move
+        end
+        unless wall_collide?(nil, @y + y_move)
+          @y += y_move
+          @window.camera_y -= y_move
         end
       end
 
@@ -60,7 +69,7 @@ module Maze
       end
 
       def mouse_angle
-        Math.atan2(@window.mouse_y - @y, @window.mouse_x - @x)
+        Math.atan2(@window.mouse_y - @y - @window.camera_y, @window.mouse_x - @x - @window.camera_x)
       end
 
     end

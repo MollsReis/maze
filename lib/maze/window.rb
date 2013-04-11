@@ -1,12 +1,14 @@
 module Maze
   class Window < ::Gosu::Window
 
+    attr_accessor :camera_x, :camera_y
     attr_reader :walls
 
     def initialize
       super(640, 480, false)
       self.caption = 'Maze'
       @font = Gosu::Font.new(self, Gosu::default_font_name, 15)
+      @camera_x, @camera_y  = 50.0, 50.0
     end
 
     def needs_cursor?
@@ -32,8 +34,10 @@ module Maze
         @font.draw('Y-Speed: ' + Math.sin(@hero.mouse_angle).round(2).to_s, 10, 40, 1)
         @font.draw('Angle: ' + @hero.mouse_angle.round(2).to_s, 10, 50, 1)
       end
-      @hero.render
-      @walls.each(&:render)
+      translate(@camera_x, @camera_y) do
+        @hero.render
+        @walls.each(&:render)
+      end
     end
 
     def button_down(id)
