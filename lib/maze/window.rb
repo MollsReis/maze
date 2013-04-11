@@ -24,6 +24,8 @@ module Maze
       @hero.move!(:back) if button_down? Gosu::KbS
       @hero.move!(:left) if button_down? Gosu::KbA
       @hero.move!(:right) if button_down? Gosu::KbD
+      #TODO add sprinting
+      #TODO add strafing
     end
 
     def draw
@@ -38,6 +40,7 @@ module Maze
         @hero.render
         @walls.each(&:render)
       end
+      #TODO add clipping
     end
 
     def button_down(id)

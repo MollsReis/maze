@@ -6,6 +6,7 @@ module Maze
 
       SPEED = 1.8
       BOUNDING_RADIUS = 5
+      Z_INDEX = 2
 
       def initialize(window, x, y)
         @window = window
@@ -63,7 +64,8 @@ module Maze
                   Maze::HERO_COLOR,
                   @x - 5,
                   @y + 10,
-                  Maze::HERO_COLOR
+                  Maze::HERO_COLOR,
+                  Z_INDEX
           )
         end
       end

@@ -1,6 +1,8 @@
 module Maze
   class Wall
 
+    Z_INDEX = 1
+
     def initialize(window, origin, destination, interior)
       @window, @origin, @destination = window, origin, destination
       create_opening! if interior
@@ -104,7 +106,8 @@ module Maze
             Maze::MAZE_COLOR,
             Maze::X_OFFSET + @destination[0] * Maze::MULTIPLIER + Maze::THICKNESS,
             Maze::Y_OFFSET + @destination[1] * Maze::MULTIPLIER + Maze::THICKNESS,
-            Maze::MAZE_COLOR
+            Maze::MAZE_COLOR,
+            Z_INDEX
         )
       elsif opening_at_destination?
         @window.draw_quad(
@@ -119,7 +122,8 @@ module Maze
             Maze::MAZE_COLOR,
             Maze::X_OFFSET + @openings[0][0] * Maze::MULTIPLIER + Maze::THICKNESS,
             Maze::Y_OFFSET + @openings[0][1] * Maze::MULTIPLIER + Maze::THICKNESS,
-            Maze::MAZE_COLOR
+            Maze::MAZE_COLOR,
+            Z_INDEX
         )
       elsif @openings
         @window.draw_quad(
@@ -134,7 +138,8 @@ module Maze
             Maze::MAZE_COLOR,
             Maze::X_OFFSET + @openings[0][0] * Maze::MULTIPLIER + Maze::THICKNESS,
             Maze::Y_OFFSET + @openings[0][1] * Maze::MULTIPLIER + Maze::THICKNESS,
-            Maze::MAZE_COLOR
+            Maze::MAZE_COLOR,
+            Z_INDEX
         )
         @window.draw_quad(
             Maze::X_OFFSET + @openings[1][0] * Maze::MULTIPLIER,
@@ -148,7 +153,8 @@ module Maze
             Maze::MAZE_COLOR,
             Maze::X_OFFSET + @destination[0] * Maze::MULTIPLIER + Maze::THICKNESS,
             Maze::Y_OFFSET + @destination[1] * Maze::MULTIPLIER + Maze::THICKNESS,
-            Maze::MAZE_COLOR
+            Maze::MAZE_COLOR,
+            Z_INDEX
         )
       else
         @window.draw_quad(
@@ -163,7 +169,8 @@ module Maze
             Maze::MAZE_COLOR,
             Maze::X_OFFSET + @destination[0] * Maze::MULTIPLIER + Maze::THICKNESS,
             Maze::Y_OFFSET + @destination[1] * Maze::MULTIPLIER + Maze::THICKNESS,
-            Maze::MAZE_COLOR
+            Maze::MAZE_COLOR,
+            Z_INDEX
         )
       end
     end
