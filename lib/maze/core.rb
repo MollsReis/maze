@@ -12,7 +12,9 @@ module Maze
       Grid.new(window, [0,0], [size,size]).bisect { |w| walls << w }
       hero = Entity::Hero.new(window, 60, 60)
       level_exit = LevelExit.new(window, size)
-      window.load!(walls, hero, level_exit)
+      robots = []
+      (size*2).times { robots << Entity::Robot.new(window, size) }
+      window.load!(walls, hero, level_exit, robots)
       window.show
     end
 

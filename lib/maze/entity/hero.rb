@@ -33,6 +33,16 @@ module Maze
         false
       end
 
+      def robot_collide?
+        @window.robots.each do |robot|
+          box = robot.bounding_box
+          next if (box.horiz_range.to_a & ((@x - BOUNDING_RADIUS).to_i..(@x + BOUNDING_RADIUS).to_i).to_a).empty?
+          next if (box.vert_range.to_a & ((@y - BOUNDING_RADIUS).to_i..(@y + BOUNDING_RADIUS).to_i).to_a).empty?
+          return true
+        end
+        false
+      end
+
       def move!(dir)
         x_move = y_move = 0
         case dir

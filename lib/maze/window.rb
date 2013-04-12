@@ -2,7 +2,7 @@ module Maze
   class Window < ::Gosu::Window
 
     attr_accessor :camera_x, :camera_y
-    attr_reader :walls, :hero, :level_exit
+    attr_reader :walls, :hero, :level_exit, :robots
 
     def initialize
       super(640, 480, false)
@@ -15,13 +15,16 @@ module Maze
       true #TODO custom cursor
     end
 
-    def load!(walls, hero, level_exit)
-      @walls, @hero, @level_exit = walls, hero, level_exit
+    def load!(walls, hero, level_exit, robots)
+      @walls, @hero, @level_exit, @robots = walls, hero, level_exit, robots
     end
 
     def update
       exit if @hero.exit_distance < 10
       #TODO YOU WIN!
+
+      exit if @hero.robot_collide?
+      #TODO YOU DIE!
 
       @hero.move!(:forward) if button_down? Gosu::KbW
       @hero.move!(:back) if button_down? Gosu::KbS
@@ -49,6 +52,7 @@ module Maze
             @hero.render
             @walls.each(&:render)
             @level_exit.render
+            @robots.each(&:render)
           end
         end
 

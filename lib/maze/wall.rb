@@ -96,6 +96,7 @@ module Maze
     end
 
     def render
+      #TODO fix sharp corners
       if opening_at_origin?
         @window.draw_quad(
             Maze::X_OFFSET + @openings[1][0] * WIDTH,
