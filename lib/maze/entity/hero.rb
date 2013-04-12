@@ -7,14 +7,19 @@ module Maze
       SPEED = 1.8
       BOUNDING_RADIUS = 5
       Z_INDEX = 2
+      FLASHLIGHT_Z = 3
       COLOR = Gosu::Color.new(0xFF0000B8)
 
       def initialize(window, x, y)
         @window = window
         @x, @y = x + Maze::X_OFFSET, y + Maze::Y_OFFSET
+        @flashlight = Gosu::Image.new(@window,
+                                      '../media/flashlight.png',
+                                      false, 0, 0, 320, 320)
       end
 
       def wall_collide?(new_x = nil, new_y = nil)
+        return false if $noclip
         new_x ||= @x
         new_y ||= @y
         @window.walls.each do |wall|
@@ -69,10 +74,15 @@ module Maze
                   Z_INDEX
           )
         end
+        @flashlight.draw(@x - 160, @y - 160, FLASHLIGHT_Z)
       end
 
       def mouse_angle
         Math.atan2(@window.mouse_y - @y - @window.camera_y, @window.mouse_x - @x - @window.camera_x)
+      end
+
+      def exit_distance
+        Math.hypot(@window.level_exit.x - @window.hero.x, @window.level_exit.y - @window.hero.y)
       end
 
     end
