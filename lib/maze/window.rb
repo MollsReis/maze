@@ -33,6 +33,8 @@ module Maze
       #TODO add sprinting
       #TODO add strafing
       #TODO throttle multiple keys at once
+
+      @robots.each { |robot| robot.move! if robot.see_hero? }
     end
 
     def draw
