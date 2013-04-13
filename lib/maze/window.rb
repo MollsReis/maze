@@ -2,7 +2,7 @@ module Maze
   class Window < ::Gosu::Window
 
     attr_accessor :camera_x, :camera_y
-    attr_reader :walls, :hero, :level_exit, :robots
+    attr_reader :walls, :hero, :level_exit, :robots, :lasers
 
     def initialize
       super(640, 480, false)
@@ -16,7 +16,11 @@ module Maze
     end
 
     def load!(walls, hero, level_exit, robots)
-      @walls, @hero, @level_exit, @robots = walls, hero, level_exit, robots
+      @walls, @hero, @level_exit, @robots, @lasers = walls, hero, level_exit, robots, []
+    end
+
+    def add_laser(laser)
+      @lasers << laser
     end
 
     def update
@@ -35,6 +39,7 @@ module Maze
       #TODO throttle multiple keys at once
 
       @robots.each { |robot| robot.move! if robot.see_hero? }
+      @lasers.each(&:move!)
     end
 
     def draw
@@ -47,6 +52,7 @@ module Maze
           @font.draw('Y-Speed: ' + Math.sin(@hero.mouse_angle).round(2).to_s, 10, 40, 100)
           @font.draw('Angle: ' + @hero.mouse_angle.round(2).to_s, 10, 50, 100)
           @font.draw('Exit Distance: ' + @hero.exit_distance.round(2).to_s, 10, 60, 100)
+          @font.draw('Laser Count: ' + @lasers.size.to_s, 10, 70, 100)
         end
 
         clip_to(@hero.x + @camera_x - 155, @hero.y + @camera_y - 155, 315, 315) do
@@ -57,6 +63,7 @@ module Maze
             @robots.each(&:render)
           end
         end
+        translate(@camera_x, @camera_y) { @lasers.each(&:render) }
 
       end
       #TODO custom cursor
@@ -64,6 +71,7 @@ module Maze
 
     def button_down(id)
       close if id == Gosu::KbEscape
+      @hero.shoot! if id == Gosu::MsLeft
     end
 
   end
