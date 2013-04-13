@@ -24,12 +24,10 @@ module Maze
     end
 
     def check_wall_collide!(new_x, new_y)
-      horiz_range = (@x.to_i..new_x.to_i).to_a
-      vert_range = (@y.to_i..new_y.to_i).to_a
       @window.walls.each do |wall|
         wall.bounding_boxes.each do |box|
-          next if (box.horiz_range.to_a & horiz_range).empty?
-          next if (box.vert_range.to_a & vert_range).empty?
+          next if (box.horiz_range.to_a & horiz_range(new_x).to_a).empty?
+          next if (box.vert_range.to_a & vert_range(new_y).to_a).empty?
           @window.lasers.delete(self)
           return true
         end
@@ -38,16 +36,26 @@ module Maze
     end
 
     def check_robot_collide!(new_x, new_y)
-      horiz_range = (@x.to_i..new_x.to_i).to_a
-      vert_range = (@y.to_i..new_y.to_i).to_a
       @window.robots.each do |robot|
-        next if (robot.bounding_box.horiz_range.to_a & horiz_range).empty?
-        next if (robot.bounding_box.vert_range.to_a & vert_range).empty?
+        next if (robot.bounding_box.horiz_range.to_a & horiz_range(new_x).to_a).empty?
+        next if (robot.bounding_box.vert_range.to_a & vert_range(new_y).to_a).empty?
         @window.robots.delete(robot)
         @window.lasers.delete(self)
         return true
       end
       false
+    end
+
+    def horiz_range(new_x)
+      return (@x.to_i..new_x.to_i) if @x.to_i < new_x.to_i
+      return (@x.to_i..(new_x + 1).to_i) if @x.to_i == new_x.to_i
+      (new_x.to_i..@x.to_i)
+    end
+
+    def vert_range(new_y)
+      return (@y.to_i..new_y.to_i) if @y.to_i < new_y.to_i
+      return (@y.to_i..(new_y + 1).to_i) if @y.to_i == new_y.to_i
+      (new_y.to_i..@y.to_i)
     end
 
     def horiz_length
