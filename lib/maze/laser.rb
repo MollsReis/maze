@@ -21,10 +21,9 @@ module Maze
       y_move = Math.sin(@angle) * SPEED
       return if check_wall_collide!(@x + x_move, @y + y_move)
       return if check_robot_collide!(@x + x_move, @y + y_move)
+      @window.lasers.delete(self) if (@lifetime += 1) > MAX_LIFETIME
       @x += x_move
       @y += y_move
-      @lifetime = @lifetime + 1
-      @window.lasers.delete(self) if @lifetime > MAX_LIFETIME
     end
 
     def check_wall_collide!(new_x, new_y)
