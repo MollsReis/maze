@@ -7,7 +7,7 @@ module Maze
     BACK_COLOR = Gosu::Color.new(0x11FF0000)
     THICKNESS = 2
     Z_INDEX = 1
-    MAX_LIFETIME = 13
+    MAX_LIFETIME = 130 / SPEED
 
     def initialize(window, x, y, angle)
       @window, @x ,@y, @angle = window, x, y, angle
