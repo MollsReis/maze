@@ -5,7 +5,7 @@ module Maze
 
       Z_INDEX = 2
       SPEED = 1.2
-      LOS_RANGE = 200
+      LOS_RANGE = 300
       BOUNDING_RADIUS = 10
       COLOR = Gosu::Color.new(0xFFCCCCCC)
 
