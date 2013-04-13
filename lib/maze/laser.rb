@@ -7,11 +7,13 @@ module Maze
     BACK_COLOR = Gosu::Color.new(0x11FF0000)
     THICKNESS = 2
     Z_INDEX = 1
+    MAX_LIFETIME = 130 / SPEED
 
     def initialize(window, x, y, angle)
       @window, @x ,@y, @angle = window, x, y, angle
       @thickness_x_val = Math.cos(@angle + (Math::PI / 2)) * THICKNESS
       @thickness_y_val = Math.sin(@angle + (Math::PI / 2)) * THICKNESS
+      @lifetime = 0
     end
 
     def move!
@@ -21,6 +23,8 @@ module Maze
       return if check_robot_collide!(@x + x_move, @y + y_move)
       @x += x_move
       @y += y_move
+      @lifetime = @lifetime + 1
+      @window.lasers.delete(self) if @lifetime > MAX_LIFETIME
     end
 
     def check_wall_collide!(new_x, new_y)
