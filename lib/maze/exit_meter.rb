@@ -21,8 +21,12 @@ module Maze
       @window, @x, @y, @size = window, x, y, size
     end
 
+    def max_distance
+      Math.sqrt(((Maze::Wall::WIDTH * @size) ** 2) * 2)
+    end
+
     def proximity_offset
-      (1 - (@window.hero.exit_distance / (Maze::Wall::WIDTH * @size))) * WIDTH
+      (1 - (@window.hero.exit_distance / max_distance)) * WIDTH
     end
 
     def render
