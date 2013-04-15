@@ -1,7 +1,7 @@
 module Maze
   class Hero
 
-    attr_reader :x, :y
+    attr_reader :x, :y, :shot_cooldown
 
     BASE_SPEED = 1.8
     SPRINT_BOOST = 1.5
@@ -10,10 +10,12 @@ module Maze
     FLASHLIGHT_Z = 3
     FLASHLIGHT_IMAGE = File.join(File.dirname(__FILE__), '..', '..', 'media', 'flashlight.png')
     COLOR = Gosu::Color.new(0xFF0000B8)
+    ROF = 3
 
     def initialize(window, x, y)
       @window = window
       @x, @y = x + Maze::X_OFFSET, y + Maze::Y_OFFSET
+      @shot_cooldown = 0
     end
 
     def load_flashlight!
@@ -111,8 +113,15 @@ module Maze
       Math.hypot(@window.level_exit.x - @window.hero.x, @window.level_exit.y - @window.hero.y)
     end
 
+    def cool_laser!
+      @shot_cooldown -= 1 unless @shot_cooldown == 0
+    end
+
     def shoot!
+      return false if @shot_cooldown > 0
       @window.add_laser(Laser.new(@window, @x, @y, mouse_angle))
+      @shot_cooldown = 60 / ROF
+      true
     end
 
   end

@@ -37,8 +37,10 @@ module Maze
       @hero.move!(:right) if button_down? Gosu::KbD
       #TODO add strafing
 
-      @robots.each { |robot| robot.move! if robot.see_hero? }
+      @robots.each { |robot| robot.move! if robot.see_hero? } #TODO if lost LOS move towards last position
       @lasers.each(&:move!)
+
+      @hero.cool_laser!
     end
 
     def sprint?
@@ -55,6 +57,7 @@ module Maze
           @font.draw('Angle: ' + @hero.mouse_angle.round(2).to_s, 10, 50, 100)
           @font.draw('Exit Distance: ' + @hero.exit_distance.round(2).to_s, 10, 60, 100)
           @font.draw('Laser Count: ' + @lasers.size.to_s, 10, 70, 100)
+          @font.draw('Laser Cooldown: ' + @hero.shot_cooldown.to_s, 10, 80, 100)
         end
 
         @meter.render
