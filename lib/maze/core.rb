@@ -1,16 +1,23 @@
 module Maze
   class Core
 
-    def self.create_maze!
-      $walls = [
-          Wall.new([0,0], [0,10], false),
-          Wall.new([0,0], [10,0], false),
-          Wall.new([10,0], [10,10], false),
-          Wall.new([0,10], [10,10], false)
+    def self.create_maze!(size = 10)
+      window = Maze::Window.new
+      walls = [
+          Wall.new(window, [0,0], [0,size], false),
+          Wall.new(window, [0,0], [size,0], false),
+          Wall.new(window, [size,0], [size,size], false),
+          Wall.new(window, [0,size], [size,size], false)
       ]
-      Grid.new([0,0], [10,10]).bisect { |w| $walls << w }
-      $window = Window.new
-      $window.show
+      Grid.new(window, [0,0], [size,size]).bisect { |w| walls << w }
+      hero = Hero.new(window, 60, 60)
+      hero.load_flashlight!
+      level_exit = LevelExit.new(window, size)
+      robots = []
+      (size*2).times { robots << Robot.new(window, size) }
+      meter = ExitMeter.new(window, 270, 25, size)
+      window.load!(walls, hero, level_exit, robots, meter)
+      window.show
     end
 
   end

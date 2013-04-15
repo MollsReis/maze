@@ -7,6 +7,7 @@ require 'logger'
 OptionParser.new do |opts|
   opts.banner = 'Usage: maze [options]'
   opts.on('-d', '--debug', 'Debug mode') { $debug = true }
+  opts.on('-n', '--noclip', 'No clipping mode') { $noclip = true }
   opts.on_tail('-h', '--help', 'Show this message') { puts opts; exit }
 end.parse!
 
@@ -15,6 +16,5 @@ if $debug
 else
   $logger = Logger.new(nil)
 end
-
 
 Maze::Core.create_maze!
