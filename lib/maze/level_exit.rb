@@ -4,6 +4,7 @@ module Maze
     attr_reader :x, :y
 
     Z_INDEX = 1
+    SIZE = 15
     COLOR = Gosu::Color.new(0xFF33CC33)
 
     def initialize(window, size)
@@ -15,17 +16,17 @@ module Maze
 
     def render
       @window.draw_quad(
-              @x - 10,
-              @y - 10,
+              @x - SIZE,
+              @y - SIZE,
               COLOR,
-              @x + 10,
-              @y - 10,
+              @x + SIZE,
+              @y - SIZE,
               COLOR,
-              @x - 10,
-              @y + 10,
+              @x - SIZE,
+              @y + SIZE,
               COLOR,
-              @x + 10,
-              @y + 10,
+              @x + SIZE,
+              @y + SIZE,
               COLOR,
               Z_INDEX
       )
