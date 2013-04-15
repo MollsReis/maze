@@ -102,6 +102,9 @@ module Maze
                 Z_INDEX
         )
       end
+    end
+
+    def flashlight_render
       @flashlight.draw(@x - 160, @y - 160, FLASHLIGHT_Z)
     end
 
