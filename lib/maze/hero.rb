@@ -3,7 +3,8 @@ module Maze
 
     attr_reader :x, :y
 
-    SPEED = 1.8
+    BASE_SPEED = 1.8
+    SPRINT_BOOST = 1.5
     BOUNDING_RADIUS = 5
     Z_INDEX = 2
     FLASHLIGHT_Z = 3
@@ -27,7 +28,6 @@ module Maze
         wall.bounding_boxes.each do |box|
           next if (box.horiz_range.to_a & ((new_x - BOUNDING_RADIUS).to_i..(new_x + BOUNDING_RADIUS).to_i).to_a).empty?
           next if (box.vert_range.to_a & ((new_y - BOUNDING_RADIUS).to_i..(new_y + BOUNDING_RADIUS).to_i).to_a).empty?
-          #TODO check circle
           return true
         end
       end
@@ -44,21 +44,36 @@ module Maze
       false
     end
 
+    def sprinting?
+      @window.button_down? Gosu::KbLeftShift
+    end
+
+    def num_movement_keys
+      [Gosu::KbW, Gosu::KbS, Gosu::KbA, Gosu::KbD].inject(0) do |total, key|
+        total += 1 if @window.button_down? key; total
+      end || 1
+    end
+
+    def speed
+      return (BASE_SPEED / num_movement_keys) * SPRINT_BOOST if sprinting?
+      (BASE_SPEED / num_movement_keys)
+    end
+
     def move!(dir)
       x_move = y_move = 0
       case dir
         when :forward
-          x_move = Math.cos(mouse_angle) * SPEED
-          y_move = Math.sin(mouse_angle) * SPEED
+          x_move = Math.cos(mouse_angle) * speed
+          y_move = Math.sin(mouse_angle) * speed
         when :back
-          x_move = Math.cos(mouse_angle) * SPEED * -1.0
-          y_move = Math.sin(mouse_angle) * SPEED * -1.0
+          x_move = Math.cos(mouse_angle) * speed * -1.0
+          y_move = Math.sin(mouse_angle) * speed * -1.0
         when :left
-          x_move = Math.sin(mouse_angle) * SPEED
-          y_move = Math.cos(mouse_angle) * SPEED * -1.0
+          x_move = Math.sin(mouse_angle) * speed
+          y_move = Math.cos(mouse_angle) * speed * -1.0
         when :right
-          x_move = Math.sin(mouse_angle) * SPEED * -1.0
-          y_move = Math.cos(mouse_angle) * SPEED
+          x_move = Math.sin(mouse_angle) * speed * -1.0
+          y_move = Math.cos(mouse_angle) * speed
       end
       unless wall_collide?(@x + x_move)
         @x += x_move

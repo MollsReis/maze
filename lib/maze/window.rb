@@ -12,7 +12,7 @@ module Maze
     end
 
     def needs_cursor?
-      true #TODO custom cursor
+      true
     end
 
     def load!(walls, hero, level_exit, robots, meter)
@@ -35,12 +35,13 @@ module Maze
       @hero.move!(:back) if button_down? Gosu::KbS
       @hero.move!(:left) if button_down? Gosu::KbA
       @hero.move!(:right) if button_down? Gosu::KbD
-      #TODO add sprinting
       #TODO add strafing
-      #TODO throttle multiple keys at once
 
       @robots.each { |robot| robot.move! if robot.see_hero? }
       @lasers.each(&:move!)
+    end
+
+    def sprint?
     end
 
     def draw
@@ -69,7 +70,6 @@ module Maze
         translate(@camera_x, @camera_y) { @lasers.each(&:render) }
 
       end
-      #TODO custom cursor
     end
 
     def button_down(id)
