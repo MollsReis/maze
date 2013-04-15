@@ -15,7 +15,8 @@ module Maze
       level_exit = LevelExit.new(window, size)
       robots = []
       (size*2).times { robots << Robot.new(window, size) }
-      window.load!(walls, hero, level_exit, robots)
+      meter = ExitMeter.new(window, 270, 25, size)
+      window.load!(walls, hero, level_exit, robots, meter)
       window.show
     end
 

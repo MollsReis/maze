@@ -2,7 +2,7 @@ module Maze
   class Window < ::Gosu::Window
 
     attr_accessor :camera_x, :camera_y
-    attr_reader :walls, :hero, :level_exit, :robots, :lasers
+    attr_reader :walls, :hero, :level_exit, :robots, :lasers, :font
 
     def initialize
       super(640, 480, false)
@@ -15,8 +15,9 @@ module Maze
       true #TODO custom cursor
     end
 
-    def load!(walls, hero, level_exit, robots)
-      @walls, @hero, @level_exit, @robots, @lasers = walls, hero, level_exit, robots, []
+    def load!(walls, hero, level_exit, robots, meter)
+      @walls, @hero, @level_exit, @robots = walls, hero, level_exit, robots
+      @lasers, @meter = [], meter
     end
 
     def add_laser(laser)
@@ -54,6 +55,8 @@ module Maze
           @font.draw('Exit Distance: ' + @hero.exit_distance.round(2).to_s, 10, 60, 100)
           @font.draw('Laser Count: ' + @lasers.size.to_s, 10, 70, 100)
         end
+
+        @meter.render
 
         clip_to(@hero.x + @camera_x - 155, @hero.y + @camera_y - 155, 315, 315) do
           translate(@camera_x, @camera_y) do
